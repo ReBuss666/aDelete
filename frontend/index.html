@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>aDelete // Portfolio</title>
+
+  <!-- Подключаем шрифт JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Canvas для WebGL/OpenGL фона -->
+  <canvas id="bg-canvas"></canvas>
+  <div class="vhs-overlay"></div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">[aDELETE_SYS]</div>
+    <nav class="nav">
+      <a href="#about" class="nav-link">01. ABOUT</a>
+      <a href="#projects" class="nav-link">02. PROJECTS</a>
+      <a href="#contact" class="nav-link">03. CONTACT</a>
+    </nav>
+    <div class="status-indicator">
+      <span class="dot"></span> SYSTEM: ONLINE
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="hero">
+    <div class="hero-content">
+      <div class="terminal-tag">PROT_ID: 0x89A // KYRGYZSTAN</div>
+      <h1 class="scramble-title" data-value="ADILET SHAMZAEV">ADILET SHAMZAEV</h1>
+      <p class="hero-subtitle scramble-sub" data-value="SOFTWARE ENGINEER // BACKEND & GRAPHICS">
+        SOFTWARE ENGINEER // BACKEND & GRAPHICS
+      </p>
+
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-primary">VIEW_PROJECTS()</a>
+        <a href="#contact" class="btn btn-outline">CONTACT_ME()</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Подключаем C++ WebAssembly модуль из папки background_engine -->
+  <script src="../background_engine/dist/bg_gl.js"></script>
+
+  <!-- Подключаем фронтенд-скрипты -->
+  <script src="js/scramble.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
