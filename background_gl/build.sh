@@ -5,7 +5,7 @@ mkdir -p dist
 
 echo "Building background_gl..."
 
-emcc src/main.cpp \
+em++ src/main.cpp \
   -O3 \
   -s USE_GLFW=3 \
   -s FULL_ES2=1 \
