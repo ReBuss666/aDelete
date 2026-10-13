@@ -222,3 +222,19 @@ body {
   color: var(--accent-red);
   opacity: 0.85;
 }
+/* ==========================================
+   ACCENT HYPERLINK
+   ========================================== */
+.accent-link {
+  color: var(--accent-red);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--accent-red);
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+
+.accent-link:hover {
+  color: var(--text-bright);
+  border-bottom-color: var(--text-bright);
+  text-shadow: 0 0 8px var(--accent-red-glow);
+}
