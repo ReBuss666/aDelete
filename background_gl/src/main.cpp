@@ -87,6 +87,10 @@ int main() {
   glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+  glfwWindowHint(GLFW_ALPHA_BITS, 8);
+#ifdef GLFW_TRANSPARENT_FRAMEBUFFER
+  glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
+#endif
 
   window = glfwCreateWindow(800, 600, "BG-engine", nullptr, nullptr);
   if (!window) {
@@ -113,6 +117,10 @@ int main() {
   GLint posAttrib = glGetAttribLocation(shaderProgram, "a_position");
   glEnableVertexAttribArray(posAttrib);
   glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 0, 0);
+
+  glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+  glEnable(GL_BLEND);
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
   emscripten_set_main_loop(renderFrame, 0, 1);
 

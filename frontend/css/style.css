@@ -38,6 +38,10 @@ html, body {
   line-height: 1.6;
 }
 
+body {
+  position: relative;
+}
+
 /* ==========================================
    CANVAS & VHS OVERLAY
    ========================================== */
@@ -47,7 +51,8 @@ html, body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: -3; /* Самый нижний слой */
+  z-index: 0;
+  pointer-events: none;
 }
 
 #bg-canvas {
@@ -56,7 +61,8 @@ html, body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: -2; /* Лазер поверх текста */
+  z-index: 1;
+  background: transparent;
   pointer-events: none;
 }
 
@@ -72,7 +78,7 @@ html, body {
     rgba(0, 0, 0, 0.25) 50%
   );
   background-size: 100% 4px;
-  z-index: -1;
+  z-index: 2;
   pointer-events: none;
   opacity: 0.7;
 }
@@ -89,7 +95,7 @@ html, body {
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 10;
+  z-index: 20;
   background: linear-gradient(to bottom, rgba(10, 10, 10, 0.9), transparent);
 }
 
@@ -145,6 +151,8 @@ html, body {
   display: flex;
   align-items: center;
   padding: 0 48px;
+  position: relative;
+  z-index: 20;
 }
 
 .hero-content {
