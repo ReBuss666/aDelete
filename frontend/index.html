@@ -14,8 +14,25 @@
 </head>
 <body>
 
-  <!-- Canvas для WebGL/OpenGL фона -->
-  <canvas id="bg-canvas"></canvas>
+  <!-- Canvas для текста (нижний слой) -->
+  <canvas id="text-canvas"></canvas>
+  <!-- Canvas для WebGL/OpenGL фона (верхний слой с лазером) -->
+  <canvas id="bg-canvas"></canvas> 
+  <script>
+    const glCanvas = document.getElementById('bg-canvas');
+    
+    function resizeGLCanvas() {
+      glCanvas.width = window.innerWidth;
+      glCanvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeGLCanvas);
+    resizeGLCanvas();
+
+    var Module = {
+      canvas: glCanvas
+    };
+  </script>
+  <script src="../background_gl/dist/bg_gl.js"></script>
   <div class="vhs-overlay"></div>
 
   <!-- Header -->
@@ -47,9 +64,8 @@
     </div>
   </main>
 
-  <script src="../background_gl/dist/bg_gl.js"></script>
-
   <!-- Подключаем фронтенд-скрипты -->
+  <script src="js/text_bg.js"></script>
   <script src="js/scramble.js"></script>
   <script src="js/app.js"></script>
 </body>

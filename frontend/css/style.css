@@ -20,6 +20,7 @@
 /* ==========================================
    RESET & BASE STYLES
    ========================================== */
+
 * {
   margin: 0;
   padding: 0;
@@ -40,13 +41,22 @@ html, body {
 /* ==========================================
    CANVAS & VHS OVERLAY
    ========================================== */
+#text-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -3; /* Самый нижний слой */
+}
+
 #bg-canvas {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: -2;
+  z-index: -2; /* Лазер поверх текста */
   pointer-events: none;
 }
 
