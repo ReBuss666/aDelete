@@ -1,0 +1,206 @@
+/* ==========================================
+   CSS VARIABLES & PALETTE
+   ========================================== */
+:root {
+  --bg-main: #0a0a0a;
+  --bg-secondary: #0e0f0e;
+  --surface: #1f2021;
+  --surface-border: #1b2222;
+
+  --text-muted: #9ca49b;
+  --text-main: #abb4ad;
+  --text-bright: #abb5aa;
+
+  --accent-red: #7c071b;
+  --accent-red-glow: rgba(124, 7, 27, 0.4);
+
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* ==========================================
+   RESET & BASE STYLES
+   ========================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ==========================================
+   CANVAS & VHS OVERLAY
+   ========================================== */
+#bg-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+  pointer-events: none;
+}
+
+/* Легкие сканлайны поверх страницы для CRT/VHS эстетики */
+.vhs-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.25) 50%
+  );
+  background-size: 100% 4px;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+/* ==========================================
+   HEADER
+   ========================================== */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 48px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  background: linear-gradient(to bottom, rgba(10, 10, 10, 0.9), transparent);
+}
+
+.logo {
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--text-bright);
+}
+
+.nav {
+  display: flex;
+  gap: 32px;
+}
+
+.nav-link {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+  color: var(--accent-red);
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.status-indicator .dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--accent-red);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--accent-red);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* ==========================================
+   HERO SECTION
+   ========================================== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 0 48px;
+}
+
+.hero-content {
+  max-width: 800px;
+}
+
+.terminal-tag {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+}
+
+.scramble-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: var(--text-bright);
+  line-height: 1.1;
+  margin-bottom: 16px;
+  letter-spacing: -1px;
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  margin-bottom: 32px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+}
+
+.btn {
+  padding: 12px 24px;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background-color: var(--accent-red);
+  color: var(--text-bright);
+  border: 1px solid var(--accent-red);
+  box-shadow: 0 0 12px var(--accent-red-glow);
+}
+
+.btn-primary:hover {
+  background-color: #930a22;
+  box-shadow: 0 0 20px rgba(124, 7, 27, 0.7);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--text-main);
+  border: 1px solid var(--surface-border);
+}
+
+.btn-outline:hover {
+  border-color: var(--text-muted);
+  color: var(--text-bright);
+}
+
+.d-glitch {
+  color: var(--accent-red);
+  opacity: 0.85;
+}
