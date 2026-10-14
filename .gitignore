@@ -36,7 +36,7 @@ background_engine/cmake-build-*/
 
 # Сгенерированные WASM и JS артефакты (если они собираются при деплое)
 # Раскомментируй строчку ниже, если не хочешь хранить bg_gl.wasm и bg_gl.js в гите:
-# background_engine/dist/
+background_engine/dist/
 
 # ==========================================
 # 4. Backend (Python / FastAPI)
