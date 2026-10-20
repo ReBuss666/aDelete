@@ -12,7 +12,7 @@ const char *VERTEX_SHADER_SRC = R"(
     }
 )";
 
-// 2. FRAGMENT SHADER (Узкий, острый кибер-лазер)
+// 2 FRAGMEnT SHADRE
 const char *FRAGMENT_SHADER_SRC = R"(
     precision mediump float;
 
@@ -29,14 +29,11 @@ const char *FRAGMENT_SHADER_SRC = R"(
 
       float wave_pos = mod(u_time * 0.45, 2.4) - 0.7;
       
-      // Динамика из Левого-Верхнего в Правый-Нижний угол
       float diag = (uv.x + (1.0 - uv.y)) * 0.5;
       float dist = abs(diag - wave_pos);
 
-      // 1. Острый белый центр луча (ширина ~0.015)
       float core = smoothstep(0.015, 0.0, dist);
       
-      // 2. Узкий красный ореол свечения (ширина ~0.055)
       float glow = smoothstep(0.055, 0.0, dist);
 
       float jitter = (random(vec2(u_time * 12.0, uv.y * 100.0)) - 0.5) * 0.006 * glow;
@@ -47,7 +44,6 @@ const char *FRAGMENT_SHADER_SRC = R"(
 
       vec4 final_color = vec4(0.0, 0.0, 0.0, 0.0);
 
-      // Рисуем лазер только там, где проходит луч
       if (glow > 0.01) {
           float noise = random(uv_glitch + floor(u_time * 20.0));
           vec3 laser_color = mix(color_accent * 2.5, color_white, core + noise * 0.2);
@@ -55,8 +51,6 @@ const char *FRAGMENT_SHADER_SRC = R"(
           final_color.rgb = laser_color;
           final_color.a = glow * 0.85; // Прозрачный лазер поверх текста
       }
-
-      // Микро-шум для эстетики
       float grain = (random(uv + u_time) - 0.5) * 0.03;
       final_color.rgb += grain;
       final_color.a += 0.02;
