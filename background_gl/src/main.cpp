@@ -1,6 +1,6 @@
 #include <GLES2/gl2.h>
 #include <GLFW/glfw3.h>
-#include <emscripten/emscripten.h>
+#include <emscripten.h>
 #include <emscripten/html5.h>
 #include <iostream>
 
@@ -10,6 +10,9 @@ GLFWwindow *window = nullptr;
 GLuint shaderProgram = 0;
 GLint uTimeLoc = -1;
 GLint uResLoc = -1;
+GLint uDistortionLoc = -1;
+float targetDistortion = 0.0f;
+float currentDistortion = 0.0f;
 
 // func for compilating 1 shader
 GLuint compileShader(GLenum type, const char *source) {
@@ -57,6 +60,18 @@ GLuint createShaderProgram(const char *vsSource, const char *fsSource) {
   return program;
 }
 
+extern "C" {
+EMSCRIPTEN_KEEPALIVE
+void setDistortion(float value) {
+  if (value > 0.7f)
+    value = 0.7f;
+  if (value < 0.0f)
+    value = 0.0f;
+
+  targetDistortion = value;
+}
+}
+
 void renderFrame() {
   int width, height;
   emscripten_get_canvas_element_size("#bg-canvas", &width, &height);
@@ -70,6 +85,8 @@ void renderFrame() {
   float currentTime = static_cast<float>(emscripten_get_now()) / 1000.0f;
   glUniform1f(uTimeLoc, currentTime);
 
+  currentDistortion += (targetDistortion - currentDistortion) * 0.12f;
+  glUniform1f(uDistortionLoc, currentDistortion);
   // res
   glUniform2f(uResLoc, static_cast<float>(width), static_cast<float>(height));
 
@@ -104,6 +121,7 @@ int main() {
 
   uTimeLoc = glGetUniformLocation(shaderProgram, "u_time");
   uResLoc = glGetUniformLocation(shaderProgram, "u_resolution");
+  uDistortionLoc = glGetUniformLocation(shaderProgram, "u_distortion");
 
   float vertices[] = {
       -1.0f, -1.0f, 1.0f, -1.0f, -1.0f, 1.0f, 1.0f, 1.0f,

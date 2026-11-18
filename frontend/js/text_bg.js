@@ -51,6 +51,8 @@ resizeTextCanvas();
 function drawTextGrid() {
   ctx.clearRect(0, 0, tWidth, tHeight);
   ctx.font = '14px "JetBrains Mono", monospace';
+  const distortion = Number(window.scrollDistortion) || 0;
+  const aspect = tWidth / tHeight;
 
   const charWidth = ctx.measureText('M').width || 8.4;
   const u_time = performance.now() / 1000.0;
@@ -66,13 +68,30 @@ function drawTextGrid() {
 
       for (let i = 0; i < 7; i++) {
         const charObj = wordChars[i];
-        const x = baseX + i * charWidth;
+        const sourceX = baseX + i * charWidth;
+        const sourceY = y;
+        const centeredX = (sourceX / tWidth - 0.5) * aspect;
+        const centeredY = sourceY / tHeight - 0.5;
+        const radius = centeredX * centeredX + centeredY * centeredY;
+        const scale = 1.0 + distortion * radius * 0.35;
 
-        // Не рисуем буквы, если они ушли за левый край экрана
-        if (x + charWidth < 0) continue;
+        const x = (
+          (centeredX * scale) / aspect + 0.5
+        ) * tWidth;
 
-        const uv_x = x / tWidth;
-        const uv_y = y / tHeight;
+        const drawY = (
+          centeredY * scale + 0.5
+        ) * tHeight;
+
+        if (
+          x + charWidth < 0 ||
+          x > tWidth ||
+          drawY < -spacingY ||
+          drawY > tHeight + spacingY
+        ) continue;
+
+        const uv_x = sourceX / tWidth;
+        const uv_y = sourceY / tHeight;
 
         const diag = (uv_x + uv_y) * 0.5;
         const dist = Math.abs(diag - wave_pos);
@@ -116,7 +135,7 @@ function drawTextGrid() {
 
         if (charObj.char !== ' ') {
           ctx.fillStyle = charObj.color;
-          ctx.fillText(charObj.char, x, y);
+          ctx.fillText(charObj.char, x, drawY);
         }
       }
     }

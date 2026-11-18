@@ -29,7 +29,12 @@
     resizeGLCanvas();
 
     var Module = {
-      canvas: glCanvas
+      canvas: glCanvas,
+
+      onRuntimeInitialized() {
+        window.setDistortion = Module.cwrap('setDistortion', null, ['number']);
+        window.dispatchEvent(new Event('wasm-ready'));
+      }
     };
   </script>
   <script src="../background_gl/dist/bg_gl.js"></script>

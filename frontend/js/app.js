@@ -1,3 +1,34 @@
+let distortion = 0;
+window.scrollDistortion = 0;
+
+function updateScrollDistortion() {
+  const maxScroll =
+    document.documentElement.scrollHeight - window.innerHeight;
+
+  const scrollProgress =
+    maxScroll > 0 ? window.scrollY / maxScroll : 0;
+
+  // Вверху 0, внизу мягкая выпуклость.
+  const targetDistortion = scrollProgress * 0.16;
+
+  distortion += (targetDistortion - distortion) * 0.12;
+  window.scrollDistortion = distortion;
+
+  const vhsOverlay = document.querySelector('.vhs-overlay');
+
+  if (vhsOverlay) {
+    vhsOverlay.style.transform = 'none';
+  }
+
+  if (typeof window.setDistortion === 'function') {
+    window.setDistortion(distortion);
+  }
+
+  requestAnimationFrame(updateScrollDistortion);
+}
+
+requestAnimationFrame(updateScrollDistortion);
+
 document.addEventListener('DOMContentLoaded', () => {
   // Находим все элементы с атрибутом data-value для scramble эффекта
   const scrambleElements = document.querySelectorAll('.scramble-title, .scramble-sub');
